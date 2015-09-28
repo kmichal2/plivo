@@ -26,7 +26,7 @@ def hello():
     auth_id = os.environ.get("AUTH_ID", AUTH_ID)
     auth_token = os.environ.get("AUTH_TOKEN", AUTH_TOKEN)
     caller_id = os.environ.get("CALLER_ID", CALLER_ID)
-    my_url = os.environ.get("MY_URL", "my_url")
+    my_url = os.environ.get("MY_URL", MY_URL)
 
     response = plivoxml.Response()
     #response.addSpeak(text, **parameters)
