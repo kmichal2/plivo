@@ -1,6 +1,9 @@
 import os
 from flask import Flask, Response, request, url_for
 import plivoxml
+AUTH_ID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
+CALLER_ID = '+12345678901'
 
 app = Flask(__name__)
 
