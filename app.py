@@ -32,7 +32,7 @@ def hello():
     response = plivoxml.Response()
     #response.addSpeak(text, **parameters)
     client = request.values.get('client')
-    p = plivo.RestAPI(auth_id, auth_token)
+    #p = plivo.RestAPI(auth_id, auth_token)
 
     #response = p.send_message(params)
     response.addSpeak("client=" + client + auth_id + auth_token + caller_id + my_url)
