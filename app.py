@@ -19,12 +19,10 @@ def speak():
 @app.route("/hello", methods=['GET', 'POST'])
 def hello():
     """Respond to incoming calls with a simple text message."""
-    text = "Congratulations! You just made a text to speech app on Plivo cloud!"
-    parameters = {'loop': 1, 'language': "en-US", 'voice': "WOMAN"}
 
     response = plivoxml.Response()
     #response.addSpeak(text, **parameters)
-    response.Speak("Hello from Plivo")
+    response.addSpeak("Hello from Plivo")
 
     return Response(str(response), mimetype='text/xml')
 
