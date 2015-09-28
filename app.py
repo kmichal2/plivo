@@ -19,11 +19,15 @@ def speak():
 @app.route("/hello", methods=['GET', 'POST'])
 def hello():
     """Respond to incoming calls with a simple text message."""
+    auth_id = os.environ.get("AUTH_ID", AUTH_ID)
+    auth_token = os.environ.get("AUTH_TOKEN", AUTH_TOKEN)
+    caller_id = os.environ.get("CALLER_ID", CALLER_ID)
+
 
     response = plivoxml.Response()
     #response.addSpeak(text, **parameters)
     client = request.values.get('client')
-    response.addSpeak("client=" + client)
+    response.addSpeak("client=" + client + auth_id + auth_token + caller_id)
 
     return Response(str(response), mimetype='text/xml')
 
