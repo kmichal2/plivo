@@ -5,6 +5,7 @@ import plivoxml
 AUTH_ID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
 CALLER_ID = '+12345678901'
+MY_URL = 'http://morning-ocean-4669.herokuapp.com/report/'
 
 app = Flask(__name__)
 
