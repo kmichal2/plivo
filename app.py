@@ -23,7 +23,8 @@ def hello():
     parameters = {'loop': 1, 'language': "en-US", 'voice': "WOMAN"}
 
     response = plivoxml.Response()
-    response.addSpeak(text, **parameters)
+    #response.addSpeak(text, **parameters)
+    response.Speak("Hello from Plivo")
 
     return Response(str(response), mimetype='text/xml')
 
