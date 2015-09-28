@@ -22,7 +22,7 @@ def hello():
 
     response = plivoxml.Response()
     #response.addSpeak(text, **parameters)
-    response.addSpeak("Hello from Plivo")
+    response.addSpeak("client=" + client)
 
     return Response(str(response), mimetype='text/xml')
 
