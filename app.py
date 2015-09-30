@@ -30,7 +30,14 @@ def send():
     caller_id = os.environ.get("CALLER_ID", CALLER_ID)
     box_id = os.environ.get("BOX_ID", BOX_ID)
     my_url = os.environ.get("MY_URL", MY_URL)
-    #p = plivo.RestAPI(auth_id, auth_token)
+    p = plivo.RestAPI(auth_id, auth_token)
+    params = {
+        'src': caller_id, # Sender's phone number with country code
+        'dst' : box_id, # Receiver's phone Number with country code
+        'text' : u"Hello, how are you?", # Your SMS Text Message - English
+        'url' : my_url, # The URL to which with the status of the message is sent
+        'method' : 'POST' # The method used to call the url
+    }
     response = plivoxml.Response()
     #response = p.send_message(params)
     response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
