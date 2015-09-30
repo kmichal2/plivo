@@ -1,5 +1,6 @@
 import os
 from flask import Flask, Response, request, url_for
+import plivo
 import plivoxml
 
 AUTH_ID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
@@ -30,7 +31,7 @@ def send():
     caller_id = os.environ.get("CALLER_ID", CALLER_ID)
     box_id = os.environ.get("BOX_ID", BOX_ID)
     my_url = os.environ.get("MY_URL", MY_URL)
-    #p = plivo.RestAPI(auth_id, auth_token)
+    p = plivo.RestAPI(auth_id, auth_token)
     params = {
         'src': caller_id, # Sender's phone number with country code
         'dst' : box_id, # Receiver's phone Number with country code
