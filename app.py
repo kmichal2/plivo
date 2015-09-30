@@ -51,7 +51,7 @@ def call():
     auth_token = os.environ.get("AUTH_TOKEN", AUTH_TOKEN)
     caller_id = os.environ.get("CALLER_ID", CALLER_ID)
     box_id = os.environ.get("BOX_ID", BOX_ID)
-    my_url = os.environ.get("MY_URL", MY_URL)
+    my_url = os.environ.get("MY_URL", MY_URL)+"call"
     p = plivo.RestAPI(auth_id, auth_token)
     params = {
         'src': caller_id, # Sender's phone number with country code
