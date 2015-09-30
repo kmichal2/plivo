@@ -40,7 +40,7 @@ def send():
         'method' : 'POST' # The method used to call the url
     }
     #response = plivoxml.Response()
-    response = p.send_message(params)
+    #response = p.send_message(params)
     #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
     return Response(str(response), mimetype='text/xml')
 
