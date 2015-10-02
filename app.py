@@ -59,30 +59,23 @@ def call():
     params = {
         'from': caller_id, # Caller Id
         'to' : box_id, # User Number to Call
-        'ring_url' : my_url+"call",
         'answer_url' : my_url+"call",
-        'hangup_url' : my_url+"call",
+        'time_limit': 80
     }
     if request.method == 'GET':
-        response = plivoxml.Response()
+        #response = plivoxml.Response()
         #response.addSpeak("hello "+client)
         #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
         p = plivo.RestAPI(auth_id, auth_token)
-        response = p.speak("hello "+client)
+        response = p.make_call(params)
     elif request.method == 'POST':
         #response = plivoxml.Response()
         #response.addSpeak("hello "+client)
-        p = plivo.RestAPI(auth_id, auth_tokent)
-        #response = p.make_call(params)
-        response = p.add_speak("hello "+client)
+        p = plivo.RestAPI(auth_id, auth_token)
+        response = p.make_call(params)
         
     return Response(str(response), mimetype='text/xml')
     
-@app.route("/hangup", methods=['POST'])
-def hangup():
-    response = plivoxml.Response()
-    return Response(str(response), mimetype='text/xml')
-
 @app.route("/hello", methods=['GET', 'POST'])
 def hello():
     """Respond to incoming calls with a simple text message."""
