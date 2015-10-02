@@ -40,7 +40,7 @@ def send():
     }
     if request.method == 'GET':
         response = plivoxml.Response()
-        response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
+        #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
     elif request.method == 'POST':
         p = plivo.RestAPI(auth_id, auth_token)
         response = p.send_message(params)
@@ -65,7 +65,7 @@ def call():
     }
     if request.method == 'GET':
         response = plivoxml.Response()
-        response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
+        #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
     elif request.method == 'POST': 
         p = plivo.RestAPI(auth_id, auth_token)
         response = p.make_call(params)
@@ -86,7 +86,7 @@ def hello():
     #p = plivo.RestAPI(auth_id, auth_token)
 
     #response = p.send_message(params)
-    response.addSpeak("client=" + client + auth_id + auth_token + caller_id + my_url)
+    response.addSpeak("hello "+client)
 
     return Response(str(response), mimetype='text/xml')
 
