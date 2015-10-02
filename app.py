@@ -65,6 +65,10 @@ def call():
     }
     if request.method == 'GET':
         response = plivoxml.Response()
+        response.addDial(callerName='jenny').addUser(box_id)
+        body = "https://s3.amazonaws.com/plivocloud/Trumpet.mp3"
+        response.addPlay(body)
+        response.addHangup()
         #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
     elif request.method == 'POST': 
         p = plivo.RestAPI(auth_id, auth_token)
