@@ -59,7 +59,6 @@ def call():
     params = {
         'from': caller_id, # Caller Id
         'dst' : box_id, # User Number to Call
-        'text' : u"Hello, how are you?", # Your SMS Text Message - English
         'ring_url' : my_url+"call",
         'answer_url' : my_url+"call",
         'hangup_url' : my_url+"hangup",
