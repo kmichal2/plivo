@@ -55,29 +55,28 @@ def call():
     caller_id = os.environ.get("CALLER_ID", CALLER_ID)
     box_id = os.environ.get("BOX_ID", BOX_ID)
     my_url = os.environ.get("MY_URL", MY_URL)
+    client = request.values.get('client')
     params = {
         'from': caller_id, # Caller Id
         'dst' : box_id, # User Number to Call
         'text' : u"Hello, how are you?", # Your SMS Text Message - English
         'ring_url' : my_url+"call",
         'answer_url' : my_url+"call",
-        'hangup_url' : my_url+"call",
+        'hangup_url' : my_url+"hangup",
     }
     if request.method == 'GET':
         response = plivoxml.Response()
-        response.addDial(callerName='jenny').addUser(box_id)
-        body = "https://s3.amazonaws.com/plivocloud/Trumpet.mp3"
-        response.addPlay(body)
+        response.addSpeak("hello "+client)
         #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
     elif request.method == 'POST':
-        response = plivoxml.Response()
-        response.addDial(callerName='jenny').addUser(box_id)
-        body = "https://s3.amazonaws.com/plivocloud/Trumpet.mp3"
-        response.addPlay(body)
-        response.addHangup()
-        #p = plivo.RestAPI(auth_id, auth_token)
-        #response = p.make_call(params)
+        p = plivo.RestAPI(auth_id, auth_token)
+        response = p.make_call(params)
         
+    return Response(str(response), mimetype='text/xml')
+    
+@app.route("/hangup", methods=['POST'])
+def hangup():
+    response = plivoxml.Response()
     return Response(str(response), mimetype='text/xml')
 
 @app.route("/hello", methods=['GET', 'POST'])
