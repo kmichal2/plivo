@@ -69,6 +69,7 @@ def call():
         #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
     elif request.method == 'POST':
         response = plivoxml.Response()
+        response.addSpeak("hello "+client)
         #p = plivo.RestAPI(auth_id, auth_token)
         #response = p.make_call(params)
         
