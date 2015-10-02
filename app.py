@@ -23,7 +23,7 @@ def speak():
 
     return Response(str(response), mimetype='text/xml')
 
-@app.route('/send', methods=['GET'])
+@app.route('/send', methods=['GET', 'POST'])
 def send():
     # Enter the message you want to send
     auth_id = os.environ.get("AUTH_ID", AUTH_ID)
@@ -31,7 +31,6 @@ def send():
     caller_id = os.environ.get("CALLER_ID", CALLER_ID)
     box_id = os.environ.get("BOX_ID", BOX_ID)
     my_url = os.environ.get("MY_URL", MY_URL)
-    p = plivo.RestAPI(auth_id, auth_token)
     params = {
         'src': caller_id, # Sender's phone number with country code
         'dst' : box_id, # Receiver's phone Number with country code
@@ -39,9 +38,13 @@ def send():
         'url' : my_url, # The URL to which with the status of the message is sent
         'method' : 'POST' # The method used to call the url
     }
-    #response = plivoxml.Response()
-    #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
-    response = p.send_message(params)
+    if request.method == 'GET':
+        response = plivoxml.Response()
+        response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
+    elif request.method == 'POST':
+        p = plivo.RestAPI(auth_id, auth_token)
+        response = p.send_message(params)
+        
     return Response(str(response), mimetype='text/xml')
     
 @app.route('/call', methods=['GET', 'POST'])
@@ -52,7 +55,6 @@ def call():
     caller_id = os.environ.get("CALLER_ID", CALLER_ID)
     box_id = os.environ.get("BOX_ID", BOX_ID)
     my_url = os.environ.get("MY_URL", MY_URL)
-    p = plivo.RestAPI(auth_id, auth_token)
     params = {
         'from': caller_id, # Caller Id
         'dst' : box_id, # User Number to Call
@@ -64,7 +66,8 @@ def call():
     if request.method == 'GET':
         response = plivoxml.Response()
         response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
-    elif request.method == 'POST':    
+    elif request.method == 'POST': 
+        p = plivo.RestAPI(auth_id, auth_token)
         response = p.make_call(params)
         
     return Response(str(response), mimetype='text/xml')
