@@ -58,7 +58,7 @@ def call():
     client = request.values.get('client')
     params = {
         'from': caller_id, # Caller Id
-        'dst' : box_id, # User Number to Call
+        'to' : box_id, # User Number to Call
         'ring_url' : my_url+"call",
         'answer_url' : my_url+"call",
         'hangup_url' : my_url+"hangup",
