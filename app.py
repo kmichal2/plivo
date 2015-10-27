@@ -69,10 +69,10 @@ def call():
         #p = plivo.RestAPI(auth_id, auth_token)
         #response = p.make_call(params)
     elif request.method == 'POST':
-        #response = plivoxml.Response()
-        #response.addSpeak("hello "+client)
-        p = plivo.RestAPI(auth_id, auth_token)
-        response = p.make_call(params)
+        response = plivoxml.Response()
+        response.addSpeak("hello "+client)
+        #p = plivo.RestAPI(auth_id, auth_token)
+        #response = p.make_call(params)
         
     return Response(str(response), mimetype='text/xml')
     
