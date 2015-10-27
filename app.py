@@ -63,16 +63,16 @@ def call():
         'time_limit': 80
     }
     if request.method == 'GET':
-        #response = plivoxml.Response()
-        #response.addSpeak("hello "+client)
+        response = plivoxml.Response()
+        response.addSpeak("hello "+client)
         #response.addSpeak(auth_id + auth_token + caller_id + box_id + my_url)
-        p = plivo.RestAPI(auth_id, auth_token)
+        #p = plivo.RestAPI(auth_id, auth_token)
         #response = p.make_call(params)
     elif request.method == 'POST':
         #response = plivoxml.Response()
         #response.addSpeak("hello "+client)
         p = plivo.RestAPI(auth_id, auth_token)
-        #response = p.make_call(params)
+        response = p.make_call(params)
         
     return Response(str(response), mimetype='text/xml')
     
