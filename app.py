@@ -78,14 +78,8 @@ def call():
         
     return Response(str(response), mimetype='text/xml')
     
-@app.route("/hello", methods=['GET', 'POST'])
-def hello():
-    """Respond to incoming calls with a simple text message."""
-    auth_id = os.environ.get("AUTH_ID", AUTH_ID)
-    auth_token = os.environ.get("AUTH_TOKEN", AUTH_TOKEN)
-    caller_id = os.environ.get("CALLER_ID", CALLER_ID)
-    my_url = os.environ.get("MY_URL", MY_URL)
-
+@app.route("/initdb", methods=['GET', 'POST'])
+def initdb():
     response = plivoxml.Response()
     #response.addSpeak(text, **parameters)
     client = request.values.get('client')
@@ -104,14 +98,37 @@ def hello():
     cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
     cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
     
-    cur.execute("SELECT * FROM test;")
-    response.addSpeak(cur.fetchone())
     cur.close()
     conn.close()
     
     #response = p.send_message(params)
     #response.addSpeak("hello "+client+" "+url.username)
 
+    return Response(str(response), mimetype='text/xml')
+    
+@app.route("/hello", methods=['GET', 'POST'])
+def hello():
+    response = plivoxml.Response()
+    #response.addSpeak(text, **parameters)
+    #client = request.values.get('client')
+    #p = plivo.RestAPI(auth_id, auth_token)
+
+    urlparse.uses_netloc.append("postgres")
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    conn = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM test;")
+    response.addSpeak(cur.fetchone())
+    cur.close()
+    conn.close()
+    
     return Response(str(response), mimetype='text/xml')
 
 if __name__ == '__main__':
