@@ -81,12 +81,9 @@ def call():
 @app.route("/initdb", methods=['GET', 'POST'])
 def initdb():
     response = plivoxml.Response()
-    #response.addSpeak(text, **parameters)
     client = request.values.get('client')
-    #p = plivo.RestAPI(auth_id, auth_token)
     if client == None:
         return Response(str(response), mimetype='text/xml')
-        
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
     conn = psycopg2.connect(
@@ -100,36 +97,29 @@ def initdb():
     cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
     cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
     cur.close()
-    
     conn.commit()
     conn.close()
-    
-    #response = p.send_message(params)
     response.addSpeak("client="+client)
     return Response(str(response), mimetype='text/xml')
     
-@app.route("/insertdb", methods=['GET', 'POST'])
-def insertdb():
+@app.route("/writedb", methods=['GET', 'POST'])
+def writedb():
     response = plivoxml.Response()
-    #response.addSpeak(text, **parameters)
     client = request.values.get('client')
     text = request.values.get('text')
-    #p = plivo.RestAPI(auth_id, auth_token)
     if client == None:
         return Response(str(response), mimetype='text/xml')
-        
+    if text == None:
+        return Response(str(response), mimetype='text/xml')
     response.addSpeak("text="+text)
     return Response(str(response), mimetype='text/xml')
     
 @app.route("/readdb", methods=['GET', 'POST'])
 def readdb():
     response = plivoxml.Response()
-    #response.addSpeak(text, **parameters)
     client = request.values.get('client')
-    #p = plivo.RestAPI(auth_id, auth_token)
     if client == None:
         return Response(str(response), mimetype='text/xml')
-
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
     conn = psycopg2.connect(
@@ -140,12 +130,10 @@ def readdb():
         port=url.port
     )
     cur = conn.cursor()
-
     cur.execute("SELECT * FROM test;")
     response.addSpeak(cur.fetchone())
     cur.close()
     conn.close()
-    
     return Response(str(response), mimetype='text/xml')
 
 @app.route("/hello", methods=['GET', 'POST'])
