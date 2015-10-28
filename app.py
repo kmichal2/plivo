@@ -84,7 +84,7 @@ def initdb():
     #response.addSpeak(text, **parameters)
     client = request.values.get('client')
     #p = plivo.RestAPI(auth_id, auth_token)
-    if (client != 'jenny')
+    if client == None:
         return Response(str(response), mimetype='text/xml')
         
     urlparse.uses_netloc.append("postgres")
@@ -115,7 +115,7 @@ def hello():
     #response.addSpeak(text, **parameters)
     client = request.values.get('client')
     #p = plivo.RestAPI(auth_id, auth_token)
-    if (client != 'jenny')
+    if client == None:
         return Response(str(response), mimetype='text/xml')
 
     urlparse.uses_netloc.append("postgres")
