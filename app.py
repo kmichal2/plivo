@@ -93,8 +93,24 @@ def hello():
 
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    conn = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
+    
+    cur.execute("SELECT * FROM test;")
+    response.addSpeak(cur.fetchone())
+    cur.close()
+    conn.close()
+    
     #response = p.send_message(params)
-    response.addSpeak("hello "+client+" "+url.username)
+    #response.addSpeak("hello "+client+" "+url.username)
 
     return Response(str(response), mimetype='text/xml')
 
