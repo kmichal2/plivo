@@ -105,7 +105,7 @@ def initdb():
     conn.close()
     
     #response = p.send_message(params)
-    response.addSpeak(database)
+    #response.addSpeak(database)
 
     return Response(str(response), mimetype='text/xml')
     
