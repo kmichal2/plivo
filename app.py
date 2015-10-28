@@ -121,8 +121,8 @@ def insertdb():
     response.addSpeak("text="+text)
     return Response(str(response), mimetype='text/xml')
     
-@app.route("/hello", methods=['GET', 'POST'])
-def hello():
+@app.route("/readdb", methods=['GET', 'POST'])
+def readdb():
     response = plivoxml.Response()
     #response.addSpeak(text, **parameters)
     client = request.values.get('client')
@@ -146,6 +146,13 @@ def hello():
     cur.close()
     conn.close()
     
+    return Response(str(response), mimetype='text/xml')
+
+@app.route("/hello", methods=['GET', 'POST'])
+def hello():
+    response = plivoxml.Response()
+    client = request.values.get('client')
+    response.addSpeak("hello "+client)
     return Response(str(response), mimetype='text/xml')
 
 if __name__ == '__main__':
