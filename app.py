@@ -84,7 +84,9 @@ def initdb():
     #response.addSpeak(text, **parameters)
     client = request.values.get('client')
     #p = plivo.RestAPI(auth_id, auth_token)
-
+    if (client != 'jenny')
+        return Response(str(response), mimetype='text/xml')
+        
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
     conn = psycopg2.connect(
@@ -111,8 +113,10 @@ def initdb():
 def hello():
     response = plivoxml.Response()
     #response.addSpeak(text, **parameters)
-    #client = request.values.get('client')
+    client = request.values.get('client')
     #p = plivo.RestAPI(auth_id, auth_token)
+    if (client != 'jenny')
+        return Response(str(response), mimetype='text/xml')
 
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
