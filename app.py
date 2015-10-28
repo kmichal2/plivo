@@ -91,8 +91,10 @@ def hello():
     client = request.values.get('client')
     #p = plivo.RestAPI(auth_id, auth_token)
 
+    urlparse.uses_netloc.append("postgres")
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
     #response = p.send_message(params)
-    response.addSpeak("hello "+client)
+    response.addSpeak("hello "+client+" "+url)
 
     return Response(str(response), mimetype='text/xml')
 
