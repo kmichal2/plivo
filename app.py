@@ -94,7 +94,7 @@ def hello():
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["DATABASE_URL"])
     #response = p.send_message(params)
-    response.addSpeak("hello "+client+" "+url)
+    response.addSpeak("hello "+client+" "+url.username)
 
     return Response(str(response), mimetype='text/xml')
 
