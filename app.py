@@ -101,11 +101,11 @@ def initdb():
     cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
     cur.close()
     
-    conn.commit()
+    #conn.commit()
     conn.close()
     
     #response = p.send_message(params)
-    #response.addSpeak("hello "+client+" "+url.username)
+    response.addSpeak(database)
 
     return Response(str(response), mimetype='text/xml')
     
