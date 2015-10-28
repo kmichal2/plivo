@@ -96,17 +96,16 @@ def initdb():
         host=url.hostname,
         port=url.port
     )
-    cur = conn.cursor()
+    #cur = conn.cursor()
     #cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
     #cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
-    cur.close()
+    #cur.close()
     
     #conn.commit()
     conn.close()
     
     #response = p.send_message(params)
     #response.addSpeak(database)
-
     return Response(str(response), mimetype='text/xml')
     
 @app.route("/hello", methods=['GET', 'POST'])
