@@ -1,5 +1,7 @@
 import os
 from flask import Flask, Response, request, url_for
+import psycopg2
+import urlparse
 import plivo
 import plivoxml
 
