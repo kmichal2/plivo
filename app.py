@@ -105,7 +105,7 @@ def initdb():
     conn.close()
     
     #response = p.send_message(params)
-    response.addSpeak(user)
+    response.addSpeak("client="+client)
     return Response(str(response), mimetype='text/xml')
     
 @app.route("/hello", methods=['GET', 'POST'])
