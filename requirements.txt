@@ -7,4 +7,4 @@ itsdangerous==0.24
 plivo==0.9.6
 requests==2.4.1
 wsgiref==0.1.2
-psycopg2==
+psycopg2==2.5.5
