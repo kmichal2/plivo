@@ -108,6 +108,19 @@ def initdb():
     response.addSpeak("client="+client)
     return Response(str(response), mimetype='text/xml')
     
+@app.route("/insertdb", methods=['GET', 'POST'])
+def insertdb():
+    response = plivoxml.Response()
+    #response.addSpeak(text, **parameters)
+    client = request.values.get('client')
+    text = request.values.get('text')
+    #p = plivo.RestAPI(auth_id, auth_token)
+    if client == None:
+        return Response(str(response), mimetype='text/xml')
+        
+    response.addSpeak("text="+text)
+    return Response(str(response), mimetype='text/xml')
+    
 @app.route("/hello", methods=['GET', 'POST'])
 def hello():
     response = plivoxml.Response()
