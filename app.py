@@ -122,6 +122,7 @@ def writedb():
     )
     cur = conn.cursor()
     cur.execute("UPDATE test SET data = 'aaa' WHERE num = 100")
+    cur.execute("SELECT * FROM test;")
     response.addSpeak(cur.fetchone())
     cur.close()
     conn.commit()
