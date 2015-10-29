@@ -181,9 +181,9 @@ def hello():
         file.write('this is a line of text')
         file.close()
         read_file = open("/tmp/foo.txt", 'r')
-        str = read_file.read(10)
+        text = read_file.read(10)
         read_file.close()
-        response.addSpeak(str)
+        response.addSpeak(text)
     except Exception, e:
         response.addSpeak(e)
         return Response(str(response), mimetype='text/xml')
