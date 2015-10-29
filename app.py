@@ -140,7 +140,7 @@ def readdb():
 def hello():
     response = plivoxml.Response()
     client = request.values.get('client')
-    response.addSpeak("hello "+client)
+    #response.addSpeak("hello "+client)
     print client
     return Response(str(response), mimetype='text/xml')
 
