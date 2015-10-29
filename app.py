@@ -181,7 +181,7 @@ def hello():
         file.write('this is a line of text')
         file.close()
         read_file = open("/tmp/foo.txt", 'r')
-        text = read_file.read(10)
+        text = read_file.read()
         read_file.close()
         response.addSpeak(text)
     except Exception, e:
