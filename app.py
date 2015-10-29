@@ -121,7 +121,7 @@ def writedb():
         port=url.port
     )
     cur = conn.cursor()
-    cur.execute("UPDATE test SET data = %s WHERE num = 100;", ("text"))
+    cur.execute("UPDATE test SET data = 'abcd' WHERE num = 100;")
     cur.execute("SELECT * FROM test;")
     response.addSpeak(cur.fetchone())
     cur.close()
