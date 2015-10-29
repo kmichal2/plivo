@@ -95,7 +95,7 @@ def initdb():
     )
     cur = conn.cursor()
     try:
-        cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+        cur.execute("CREATE TABLE IF NOT EXISTS test (id serial PRIMARY KEY, num integer, data varchar);")
         cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
     except Exception, e:
         cur.close()
