@@ -94,8 +94,15 @@ def initdb():
         port=url.port
     )
     cur = conn.cursor()
-    cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
-    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
+    try:
+        cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+        cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
+    except Exception, e:
+        cur.close()
+        conn.close()
+        response.addSpeak(e)
+        return Response(str(response), mimetype='text/xml')
+        
     cur.close()
     conn.commit()
     conn.close()
