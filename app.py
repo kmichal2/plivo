@@ -141,7 +141,8 @@ def hello():
     response = plivoxml.Response()
     client = request.values.get('client')
     response.addSpeak("hello "+client)
-    return Response(str(response), mimetype='text/xml')
+    #return Response(str(response), mimetype='text/xml')
+    return print client
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
