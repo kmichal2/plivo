@@ -111,7 +111,23 @@ def writedb():
         return Response(str(response), mimetype='text/xml')
     if text == None:
         return Response(str(response), mimetype='text/xml')
-    response.addSpeak("text="+text)
+    urlparse.uses_netloc.append("postgres")
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    conn = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
+    cur = conn.cursor()
+    cur.execute("UPDATE test SET data = %s WHERE num = 100", text)
+    response.addSpeak(cur.fetchone())
+    cur.close()
+    conn.commit()
+    conn.close()
+
+    #response.addSpeak("text="+text)
     return Response(str(response), mimetype='text/xml')
     
 @app.route("/readdb", methods=['GET', 'POST'])
