@@ -123,7 +123,7 @@ def writedb():
     cur = conn.cursor()
     #SQL = "UPDATE test SET data = '" + text + "' WHERE num = 100;"
     SQL = "UPDATE test SET data = %s WHERE num = 100;"
-    data = ("+text+",)
+    data = '("'+text+'",)'
     #cur.execute("UPDATE test SET data = 'abcd' WHERE num = 100;")
     cur.execute(SQL, data)
     cur.execute("SELECT * FROM test;")
