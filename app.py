@@ -128,11 +128,16 @@ def writedb():
     )
     cur = conn.cursor()
     #cur.execute("UPDATE test SET data = 'abcd' WHERE num = 100;")
-    SQL = "UPDATE test SET data = %s WHERE num = 100;"
-    data = (""+text+"",)
-    cur.execute(SQL, data)
-    cur.execute("SELECT * FROM test;")
-    response.addSpeak(cur.fetchone())
+    try:
+        SQL = "UPDATE test SET data = %s WHERE num = 100;"
+        data = (""+text+"",)
+        cur.execute(SQL, data)
+        cur.execute("SELECT * FROM test;")
+        response.addSpeak(cur.fetchone())
+    except Exception, e:
+        response.addSpeak(e)
+        return Response(str(response), mimetype='text/xml')
+    
     cur.close()
     conn.commit()
     conn.close()
@@ -156,8 +161,13 @@ def readdb():
         port=url.port
     )
     cur = conn.cursor()
-    cur.execute("SELECT * FROM test;")
-    response.addSpeak(cur.fetchone())
+    try:
+        cur.execute("SELECT * FROM test;")
+        response.addSpeak(cur.fetchone())
+    except Exception, e:
+        response.addSpeak(e)
+        return Response(str(response), mimetype='text/xml')
+        
     cur.close()
     conn.close()
     return Response(str(response), mimetype='text/xml')
