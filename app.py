@@ -138,9 +138,9 @@ def readdb():
 
 @app.route("/hello", methods=['GET', 'POST'])
 def hello():
-    response = plivoxml.Response()
+    response = plivoxml.Response()  
     client = request.values.get('client')
-    response.addSpeak("hello "+client)
+    response.addSpeak("hello "+client)  
     return Response(str(response), mimetype='text/xml')
 
 if __name__ == '__main__':
