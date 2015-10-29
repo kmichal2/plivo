@@ -176,6 +176,17 @@ def readdb():
 def hello():
     response = plivoxml.Response()  
     client = request.values.get('client')
+    try:
+        file = open("/tmp/foo.txt", "w")
+        file.write('this is a line of text')
+        file.close()
+        read_file = open("/tmp/foo.txt", 'r')
+        read_file.read()
+        response.addSpeak(read_file)
+    except Exception, e:
+        response.addSpeak(e)
+        return Response(str(response), mimetype='text/xml')
+        
     response.addSpeak("hello "+client)  
     return Response(str(response), mimetype='text/xml')
 
