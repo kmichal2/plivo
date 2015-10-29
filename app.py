@@ -142,7 +142,7 @@ def hello():
     client = request.values.get('client')
     #response.addSpeak("hello "+client)
     #print client
-    return client
+    return flask.jsonify(client=client)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
