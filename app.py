@@ -101,8 +101,7 @@ def initdb():
         response.addSpeak(cur.fetchone())
     except Exception, e:
         response.addSpeak(e)
-        return Response(str(response), mimetype='text/xml')
-        
+
     cur.close()
     conn.commit()
     conn.close()
@@ -136,13 +135,10 @@ def writedb():
         response.addSpeak(cur.fetchone())
     except Exception, e:
         response.addSpeak(e)
-        return Response(str(response), mimetype='text/xml')
-    
+
     cur.close()
     conn.commit()
     conn.close()
-
-    #response.addSpeak("text="+text)
     return Response(str(response), mimetype='text/xml')
     
 @app.route("/readdb", methods=['GET', 'POST'])
@@ -166,14 +162,13 @@ def readdb():
         response.addSpeak(cur.fetchone())
     except Exception, e:
         response.addSpeak(e)
-        return Response(str(response), mimetype='text/xml')
-        
+
     cur.close()
     conn.close()
     return Response(str(response), mimetype='text/xml')
 
-@app.route("/hello", methods=['GET', 'POST'])
-def hello():
+@app.route("/writefile", methods=['GET', 'POST'])
+def writefile():
     response = plivoxml.Response()  
     client = request.values.get('client')
     try:
@@ -186,9 +181,28 @@ def hello():
         response.addSpeak(text)
     except Exception, e:
         response.addSpeak(e)
-        return Response(str(response), mimetype='text/xml')
+
+    return Response(str(response), mimetype='text/xml')
+    
+@app.route("/readfile", methods=['GET', 'POST'])
+def readfile():
+    response = plivoxml.Response()  
+    client = request.values.get('client')
+    try:
+        read_file = open("/tmp/foo.txt", 'r')
+        text = read_file.read()
+        read_file.close()
+        response.addSpeak(text)
+    except Exception, e:
+        response.addSpeak(e)
         
-    #response.addSpeak("hello "+client)  
+    return Response(str(response), mimetype='text/xml')
+    
+@app.route("/hello", methods=['GET', 'POST'])
+def hello():
+    response = plivoxml.Response()  
+    client = request.values.get('client')
+    response.addSpeak("hello "+client)  
     return Response(str(response), mimetype='text/xml')
 
 if __name__ == '__main__':
